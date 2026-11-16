@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 255 249 244;
+  --surface: 255 255 255;
+  --surface2: 255 246 249;
+  --line: 244 228 236;
+  --ink: 62 43 66;
+  --ink2: 110 90 116;
+  --ink3: 156 138 162;
+  --shadow: 120 70 100;
+
+  --blush-50: 255 245 248; --blush-100: 255 232 239; --blush-200: 255 209 224; --blush-300: 255 176 201;
+  --blush-400: 247 138 174; --blush-500: 232 100 144; --blush-600: 205 70 118;
+  --lavender-50: 248 245 255; --lavender-100: 237 231 255; --lavender-200: 218 205 255; --lavender-300: 191 170 247;
+  --lavender-400: 162 135 236; --lavender-500: 132 101 217; --lavender-600: 107 76 189;
+  --sage-50: 243 249 244; --sage-100: 226 240 228; --sage-200: 197 224 201; --sage-300: 161 201 167;
+  --sage-400: 122 173 131; --sage-500: 90 145 101; --sage-600: 65 113 76;
+  --cream-50: 255 253 248; --cream-100: 255 249 238; --cream-200: 253 241 220;
+}
+
+.dark {
+  --bg: 27 21 33;
+  --surface: 41 32 50;
+  --surface2: 51 41 62;
+  --line: 72 59 84;
+  --ink: 247 237 245;
+  --ink2: 212 196 218;
+  --ink3: 158 142 168;
+  --shadow: 0 0 0;
+
+  --blush-50: 60 39 52; --blush-100: 76 47 63; --blush-200: 102 57 80; --blush-300: 192 101 139;
+  --blush-400: 240 132 172; --blush-500: 246 152 186; --blush-600: 250 178 204;
+  --lavender-50: 47 40 68; --lavender-100: 59 49 86; --lavender-200: 81 67 120; --lavender-300: 140 118 200;
+  --lavender-400: 170 148 232; --lavender-500: 190 170 244; --lavender-600: 211 196 250;
+  --sage-50: 36 52 42; --sage-100: 44 66 52; --sage-200: 60 90 70; --sage-300: 100 150 112;
+  --sage-400: 130 184 142; --sage-500: 154 202 164; --sage-600: 184 222 192;
+  --cream-50: 41 32 50; --cream-100: 47 37 56; --cream-200: 58 46 66;
+}
+
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; }
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    background-image:
+      radial-gradient(60rem 30rem at 100% -10%, rgb(var(--lavender-100) / 0.7), transparent 60%),
+      radial-gradient(50rem 28rem at -10% 10%, rgb(var(--blush-100) / 0.7), transparent 60%);
+    background-attachment: fixed;
+    transition: background-color .3s ease, color .3s ease;
+  }
+  h1, h2, h3 { @apply font-display tracking-tight; }
+  ::selection { background: rgb(var(--blush-200)); }
+  :focus-visible { @apply outline-none ring-2 ring-lavender-300 ring-offset-2 ring-offset-bg; }
+  input[type='date'], input[type='time'], input[type='datetime-local'] { color-scheme: light; }
+  .dark input[type='date'], .dark input[type='time'], .dark input[type='datetime-local'] { color-scheme: dark; }
+}
+
+@layer components {
+  .card { @apply rounded-3xl border border-line/70 bg-surface p-5 shadow-soft; }
+  .card-tint { @apply rounded-3xl border border-line/60 bg-soft p-5; }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-bold transition
+           active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary { @apply btn bg-blush-400 text-white shadow-soft hover:bg-blush-500; }
+  .dark .btn-primary { @apply text-[#2a1d2e]; }
+  .btn-lavender { @apply btn bg-lavender-100 text-lavender-600 hover:bg-lavender-200; }
+  .btn-soft { @apply btn bg-blush-100 text-blush-600 hover:bg-blush-200; }
+  .btn-ghost { @apply btn text-ink-2 hover:bg-soft; }
+  .btn-danger { @apply btn bg-blush-50 text-blush-600 hover:bg-blush-100 border border-blush-200; }
+  .input {
+    @apply w-full rounded-2xl border border-line bg-surface px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-3
+           transition focus:border-lavender-300 focus:outline-none focus:ring-2 focus:ring-lavender-200;
+  }
+  .label { @apply mb-1.5 block text-xs font-bold uppercase tracking-wide text-ink-3; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold; }
+  .scroll-soft { scrollbar-width: thin; scrollbar-color: rgb(var(--blush-200)) transparent; }
+}
+
+.pb-safe { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition-duration: .01ms !important; } }
